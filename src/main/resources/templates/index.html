@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shop Index</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form action="#" th:action="@{/total}" th:object="${cart}" method="POST">
+ 	<label for="customers">Select a customer:</label>
+	<select id="customer" name="customer">
+		<option value="">Select Customer...</option>
+		<option th:each="c : ${customers}" th:value="${c.id}" th:text="${c.name} + ' ( Global discount: ' + ${c.discount} + ' % )'"></option>
+	</select>
+	<br />	<br />
+	<table id="productsTable" border=1>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+	<tbody>
+   	<tr th:each="prod, index: ${products}"
+      th:style="${index.odd} ? 'color: red' : 'color: blue;'">
+        <td th:text="${prod.name}">1</td>
+    	<td th:text="${prod.price}">Jack</td>
+    	<td><input type="number" min=0 value="0" th:attr="name=qty[]"><input type="hidden" th:value="${prod.id}" th:attr="name='products[]'"></td>
+    </tr>
+    <tr><td colspan="3" align="right">  <input type="submit" /></td></tr>
+	</tbody>
+	</table>
+</form>
+</body>
+</html>
